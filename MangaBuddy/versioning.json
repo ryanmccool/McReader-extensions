@@ -1,0 +1,22 @@
+{
+  "buildTime": "2026-05-30T00:02:01.186Z",
+  "sources": [
+    {
+      "id": "MangaBuddy",
+      "name": "MangaBuddy",
+      "author": "Netsky",
+      "desc": "Extension that pulls manga from https://mangabuddy1.co.uk",
+      "website": "http://github.com/TheNetsky",
+      "contentRating": "MATURE",
+      "version": "2.0.5",
+      "icon": "icon.png",
+      "tags": [],
+      "websiteBaseURL": "https://mangabuddy1.co.uk",
+      "intents": 21
+    }
+  ],
+  "builtWith": {
+    "toolchain": "0.8.7",
+    "types": "0.8.7"
+  }
+}
