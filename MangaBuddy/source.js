@@ -67,7 +67,7 @@ var _Sources = (() => {
   var import_types = __toESM(require_lib());
   var DOMAIN = "https://mangabuddy1.co.uk";
   var MangaBuddyInfo = {
-    version: "3.1.0",
+    version: "3.1.1",
     name: "MangaBuddy",
     description: `Extension that pulls manga from ${DOMAIN}`,
     author: "Netsky",
@@ -251,6 +251,8 @@ Please go to the source settings and run Cloudflare Bypass, or open ${this.baseU
         const $img = $("img", a).first();
         const image = this.getImageSrc($img);
         let title = ($img.attr("alt") || $(a).attr("title") || $("span", a).first().text() || "").trim();
+        // Cards expose the title only via the cover image's alt text ("Cover of <title>"); strip it.
+        title = title.replace(/^Cover of\s+/i, "").trim();
         title = title.replace(/\s*[-|]\s*MangaBuddy.*$/i, "").trim();
         if (!title) title = mangaId.split(".")[0].replace(/-/g, " ");
         seen.add(mangaId);
