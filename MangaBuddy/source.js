@@ -67,7 +67,7 @@ var _Sources = (() => {
   var import_types = __toESM(require_lib());
   var DOMAIN = "https://mangabuddy1.co.uk";
   var MangaBuddyInfo = {
-    version: "3.0.0",
+    version: "3.1.0",
     name: "MangaBuddy",
     description: `Extension that pulls manga from ${DOMAIN}`,
     author: "Netsky",
@@ -150,11 +150,11 @@ Please go to the source settings and run Cloudflare Bypass, or open ${this.baseU
       const response = await this.requestManager.schedule(request, 1);
       this.CloudFlareError(response.status);
       const $ = this.cheerio.load(response.data);
-      let title = this.decode($('meta[property="og:title"]').attr("content") || $("h1").first().text());
+      let title = this.decode($('h1[itemprop="name"]').first().text() || $("h1").first().text() || $('meta[property="og:title"]').attr("content") || "");
       title = title.replace(/\s*[-|]\s*MangaBuddy.*$/i, "").trim();
       if (!title) title = mangaId.split(".")[0].replace(/-/g, " ");
-      let image = ($('meta[property="og:image"]').attr("content") || "").trim();
-      if (!image) image = this.getImageSrc($("img").first());
+      let image = this.getImageSrc($('img[alt^="Cover of"]').first());
+      if (!image) image = ($('meta[property="og:image"]').attr("content") || "").trim();
       const description = this.decode($('meta[property="og:description"]').attr("content") || "");
       const tags = [];
       for (const a of $('a[href*="/genres/"], a[href*="/genre/"]').toArray()) {
