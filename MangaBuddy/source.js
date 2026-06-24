@@ -67,7 +67,7 @@ var _Sources = (() => {
   var import_types = __toESM(require_lib());
   var DOMAIN = "https://mangabuddy1.co.uk";
   var MangaBuddyInfo = {
-    version: "3.1.1",
+    version: "3.1.2",
     name: "MangaBuddy",
     description: `Extension that pulls manga from ${DOMAIN}`,
     author: "Netsky",
@@ -165,14 +165,20 @@ Please go to the source settings and run Cloudflare Bypass, or open ${this.baseU
       const tagSections = tags.length ? [App.createTagSection({ id: "0", label: "genres", tags })] : [];
       const bodyText = $("body").text();
       const status = /completed/i.test(bodyText) && !/ongoing/i.test(bodyText) ? "Completed" : "Ongoing";
+      const authors = [];
+      for (const a of $('a[href*="/author/"]').toArray()) {
+        const name = this.decode($(a).text());
+        if (name && !authors.includes(name)) authors.push(name);
+      }
+      const author = authors.join(", ");
       return App.createSourceManga({
         id: mangaId,
         mangaInfo: App.createMangaInfo({
           titles: [title],
           image: image || "",
           status,
-          author: "Unknown",
-          artist: "Unknown",
+          author,
+          artist: "",
           desc: description,
           tags: tagSections
         })
