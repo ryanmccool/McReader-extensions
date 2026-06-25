@@ -1,5 +1,5 @@
 {
-  "buildTime": "2026-06-25T03:58:33.000Z",
+  "buildTime": "2026-06-25T13:20:00.000Z",
   "sources": [
     {
       "id": "MangaBuddy",
@@ -25,6 +25,19 @@
       "icon": "icon.png",
       "tags": [],
       "websiteBaseURL": "https://mangadex.org",
+      "intents": 5
+    },
+    {
+      "id": "MangaTaro",
+      "name": "MangaTaro",
+      "author": "McReader",
+      "desc": "Read manga from MangaTaro (mangataro.org).",
+      "website": "https://github.com/ryanmccool",
+      "contentRating": "MATURE",
+      "version": "1.0.0",
+      "icon": "icon.png",
+      "tags": [],
+      "websiteBaseURL": "https://mangataro.org",
       "intents": 5
     }
   ],
