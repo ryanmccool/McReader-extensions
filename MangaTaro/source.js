@@ -732,7 +732,7 @@ var _Sources = (() => {
   var import_types = __toESM(require_lib(), 1);
   var SITE = "https://mangataro.org";
   var MangaTaroInfo = {
-    version: "1.0.0",
+    version: "1.0.1",
     name: "MangaTaro",
     description: "Read manga from MangaTaro (mangataro.org).",
     author: "McReader",
@@ -975,10 +975,12 @@ var _Sources = (() => {
         const list = json.chapters || [];
         for (const c of list) {
           const num = parseFloat(c.chapter);
+          const rawTitle = (c.title || "").trim();
+          const hasTitle = rawTitle.length > 0 && rawTitle.toUpperCase() !== "N/A";
           chapters.push(
             App.createChapter({
               id: String(c.id),
-              name: c.title && c.title.length ? c.title : `Chapter ${c.chapter}`,
+              name: hasTitle ? rawTitle : `Chapter ${c.chapter}`,
               chapNum: isNaN(num) ? 0 : num,
               volume: 0,
               time: this.parseDate(c.date),

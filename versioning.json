@@ -1,5 +1,5 @@
 {
-  "buildTime": "2026-06-25T13:20:00.000Z",
+  "buildTime": "2026-06-25T13:58:49.000Z",
   "sources": [
     {
       "id": "MangaBuddy",
@@ -34,7 +34,7 @@
       "desc": "Read manga from MangaTaro (mangataro.org).",
       "website": "https://github.com/ryanmccool",
       "contentRating": "MATURE",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "icon": "icon.png",
       "tags": [],
       "websiteBaseURL": "https://mangataro.org",
