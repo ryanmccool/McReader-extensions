@@ -736,7 +736,7 @@ var _Sources = (() => {
   var LANG = "en";
   var RATINGS = ["safe", "suggestive"];
   var MangaDexInfo = {
-    version: "1.0.0",
+    version: "1.0.1",
     name: "MangaDex",
     description: "Read manga from MangaDex (api.mangadex.org). Filtered to safe/suggestive content.",
     author: "McReader",
@@ -760,7 +760,9 @@ var _Sources = (() => {
             request.headers = {
               ...(_a = request.headers) != null ? _a : {},
               referer: `${SITE}/`,
-              "user-agent": await this.requestManager.getDefaultUserAgent()
+              // MangaDex's API (Cloudflare) returns HTTP 400 for the host's default browser-mobile
+              // User-Agent. Send a plain app UA, which the API accepts.
+              "user-agent": "McReader/1.0"
             };
             return request;
           },

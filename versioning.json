@@ -1,5 +1,5 @@
 {
-  "buildTime": "2026-06-25T13:58:49.000Z",
+  "buildTime": "2026-06-25T15:20:54.000Z",
   "sources": [
     {
       "id": "MangaBuddy",
@@ -21,7 +21,7 @@
       "desc": "Read manga from MangaDex (api.mangadex.org). Filtered to safe/suggestive content.",
       "website": "https://github.com/ryanmccool",
       "contentRating": "MATURE",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "icon": "icon.png",
       "tags": [],
       "websiteBaseURL": "https://mangadex.org",
