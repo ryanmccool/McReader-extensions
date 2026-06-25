@@ -736,7 +736,7 @@ var _Sources = (() => {
   var LANG = "en";
   var RATINGS = ["safe", "suggestive"];
   var MangaDexInfo = {
-    version: "1.0.1",
+    version: "1.0.2",
     name: "MangaDex",
     description: "Read manga from MangaDex (api.mangadex.org). Filtered to safe/suggestive content.",
     author: "McReader",
@@ -745,7 +745,10 @@ var _Sources = (() => {
     contentRating: import_types.ContentRating.MATURE,
     websiteBaseURL: SITE,
     sourceTags: [],
-    intents: import_types.SourceIntents.MANGA_CHAPTERS | import_types.SourceIntents.HOMEPAGE_SECTIONS
+    intents: import_types.SourceIntents.MANGA_CHAPTERS | import_types.SourceIntents.HOMEPAGE_SECTIONS,
+    // The MangaDex API + cover CDN reject the host's default browser UA (HTTP 400). The app uses
+    // this for native cover/page fetches (which bypass the in-JS interceptor).
+    userAgent: "McReader/1.0"
   };
   var MangaDex = class {
     constructor(cheerio) {
@@ -788,6 +791,16 @@ var _Sources = (() => {
       const k = Object.keys(obj)[0];
       return k ? obj[k] : "";
     }
+    // Best display title: the main title, else the first non-empty alt title. Never the UUID id.
+    bestTitle(attr) {
+      const main = this.pick(attr == null ? void 0 : attr.title);
+      if (main) return main;
+      for (const alt of (attr == null ? void 0 : attr.altTitles) || []) {
+        const t = this.pick(alt);
+        if (t) return t;
+      }
+      return "";
+    }
     coverURL(mangaId, relationships) {
       var _a;
       const art = (relationships || []).find((r) => r.type === "cover_art");
@@ -813,7 +826,7 @@ var _Sources = (() => {
       return App.createPartialSourceManga({
         mangaId: m.id,
         image: this.coverURL(m.id, m.relationships || []),
-        title: this.pick(attr.title) || m.id
+        title: this.bestTitle(attr) || m.id
       });
     }
     getMangaShareUrl(mangaId) {
@@ -829,7 +842,7 @@ var _Sources = (() => {
       const attr = data.attributes || {};
       const rels = data.relationships || [];
       const titles = [];
-      const main = this.pick(attr.title);
+      const main = this.bestTitle(attr);
       if (main) titles.push(main);
       for (const alt of attr.altTitles || []) {
         const t = this.pick(alt);
